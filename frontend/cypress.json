@@ -1,0 +1,6 @@
+{
+  "componentFolder": "src",
+  "testFiles": "**/*.spec.js",
+  "pluginsFile":false,
+  "baseUrl":"http://localhost:3000"
+}
