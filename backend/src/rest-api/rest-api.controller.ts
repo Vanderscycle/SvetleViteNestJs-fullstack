@@ -41,3 +41,4 @@ export class RestApiController {
     return this.restApiService.createEntry(body);
   }
 }
+//TODO: add Delete/put endpoints
