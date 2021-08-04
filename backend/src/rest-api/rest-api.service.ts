@@ -4,6 +4,7 @@ import { Greeting } from './entities/greeting.entity';
 
 @Injectable()
 export class RestApiService {
+  //in the development stage we can use the class entity to test
   private greetings: Greeting[] = [
     { id: 0, msg: 'Hello' },
     { id: 1, msg: '你好' },

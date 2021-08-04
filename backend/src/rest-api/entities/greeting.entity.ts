@@ -8,5 +8,5 @@ export class Greeting {
   msg: string;
 }
 
-//represent database tables (mongo/typeOrm)
-//use the entity to populate service and controller types
+
+//use the entity to populate service and controller types (test only)
