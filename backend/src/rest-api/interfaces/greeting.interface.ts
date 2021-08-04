@@ -1,6 +1,6 @@
 import { Document } from "mongoose";
 
-export interface Greeting extends Document {
+export interface GreetingInterface extends Document {
   id:number;
   msg:string;
 }
