@@ -18,7 +18,7 @@ export async function getCall(url:string): Promise<any> {
 
 export async function postNewGreeting(payload:GreetingInterface,endpoint:string='http://localhost:3001/rest-api'):Promise<any> {
   try {
-    console.log(endpoint)
+    //console.log(endpoint)
     const response = await axios.post(endpoint, payload)
     if(response.status == 201){
         // test for status you want, etc
@@ -28,6 +28,15 @@ export async function postNewGreeting(payload:GreetingInterface,endpoint:string=
   } catch  (error) {
       console.error(error);
   }
-
-
 }
+export async function deleteGreeting(id:string,endpoint:string='http://localhost:3001/rest-api'):Promise<any>{
+  try {
+    console.log(id)
+    const response = await axios.delete(`${endpoint}/${id}`)
+    console.log(response.status) 
+    return response
+  } catch  (error) {
+      console.error(error);
+  }
+}
+

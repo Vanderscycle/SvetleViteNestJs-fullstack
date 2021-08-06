@@ -11,7 +11,7 @@
 </script>
 
 <template >
-  <div class='bg-red-300'>
+  <div class='bg-blue-300'>
     <Router>
       {#each Routes as route}
         <Link to={route.routeUrl}>
