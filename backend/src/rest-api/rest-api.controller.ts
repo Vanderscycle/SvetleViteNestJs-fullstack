@@ -1,4 +1,4 @@
-import { Body, Controller, Get, NotFoundException, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { CreateGreetingDto } from './dto/create-greeting.dto';
 import { Greeting } from './entities/greeting.entity';
@@ -25,7 +25,7 @@ export class RestApiController {
   @ApiOkResponse({ type: Greeting})
   @ApiNotFoundResponse()//tells swagger that a 404 answer is possible
   @Get(':id')
-  async getGreetingById(@Param('id', ParseIntPipe) id: number): Promise<GreetingInterface> {//without the pipe you need to convert from string to int
+  async getGreetingById(@Param('id') id: string): Promise<GreetingInterface> {//without the pipe you need to convert from string to int
     console.log('--->', typeof id)
     const greeting = await this.restApiService.findById(id);
 
@@ -39,6 +39,15 @@ export class RestApiController {
   @Post()
   async createEntry(@Body() body: CreateGreetingDto): Promise<GreetingInterface> {
     return this.restApiService.createEntry(body);
+  }
+
+  @ApiOkResponse({ type: Greeting})
+  @ApiBadRequestResponse()//because of class validators
+  @Delete(":id")
+  async deleteEntry(@Param('id') id: string): Promise<any> {
+    const deletedValue = this.restApiService.findById(id)
+    this.restApiService.deleteProduct(id)
+    return deletedValue;
   }
 }
 //TODO: add Delete/put endpoints

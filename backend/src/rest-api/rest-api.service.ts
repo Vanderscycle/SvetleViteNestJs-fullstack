@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { CreateGreetingDto } from './dto/create-greeting.dto';
 //import { Greeting } from './entities/greeting.entity';
@@ -37,8 +37,8 @@ export class RestApiService {
   // }
   //why g => g.id === greetingId works and not (g) => {g.id === greetingId}
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
-  async findById(greetingId:number):Promise<GreetingInterface> {
-    const greeting = await this.greetingModel.findOne({id:greetingId}).exec()
+  async findById(greetingId:string):Promise<GreetingInterface> {
+    const greeting = await this.greetingModel.findOne({_id:greetingId}).exec()
     return greeting
   }
 
@@ -53,4 +53,13 @@ export class RestApiService {
     const newGreeting = new this.greetingModel(createGreetingDto);
     return newGreeting.save()
   }
+  async deleteProduct(greetingId: string) {
+    console.log(greetingId)
+    const result = await this.greetingModel.deleteOne({_id: greetingId}).exec()
+    if (result.n === 0 ) {
+      throw new NotFoundException('greeting does not exist');
+    }
+    console.log(result)
+  }
+
 }
