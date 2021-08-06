@@ -7,7 +7,11 @@ import { GreetingInterface } from './interfaces/greeting.interface';
 @Injectable()
 export class RestApiService {
   //in the production phase we want 
+  //INFO: GREET... string is a symbol (find and replace during creation)
   constructor(@Inject('GREETING_MODEL') private readonly greetingModel: Model<GreetingInterface>) {}
+  //if more than one we can use inheritance
+
+  //INFO:js array
   //in the development stage we can use the class entity to test
   // private greetings: Greeting[] = [
   //   { id: 0, msg: 'Hello' },

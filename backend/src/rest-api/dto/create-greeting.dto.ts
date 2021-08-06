@@ -11,3 +11,4 @@ export class CreateGreetingDto {
   // @ApiProperty({required:false})//optional input parameter
   // language?:string
 }
+//info: client/server interaction

@@ -9,3 +9,4 @@ export const greetingProvider = [
   }
 ]
 //sorta confused between service and providers
+//TODO: read about: inversion of control (a way to only have a single instance)

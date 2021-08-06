@@ -1,0 +1,6 @@
+{
+  "Greeting":{
+    "id": { "int": { "min": 0, "max": 50 } },
+    "msg": {"string":{}}
+  }
+}
