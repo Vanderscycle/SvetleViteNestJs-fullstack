@@ -31,12 +31,25 @@ export async function postNewGreeting(payload:GreetingInterface,endpoint:string=
 }
 export async function deleteGreeting(id:string,endpoint:string='http://localhost:3001/rest-api'):Promise<any>{
   try {
-    console.log(id)
+    // console.log(id)
     const response = await axios.delete(`${endpoint}/${id}`)
-    console.log(response.status) 
-    return response
+    if(response.status == 200){
+      console.log(response.status) 
+    }
+    return response.data
   } catch  (error) {
       console.error(error);
   }
 }
-
+export async function patchGreeting(payload:GreetingInterface,endpoint:string='http://localhost:3001/rest-api'):Promise<any>{
+  try {
+    // console.log(payload.id)
+    const response = await axios.patch(`${endpoint}/${payload.id}`,{msg:payload.msg})
+    if(response.status == 200){
+      console.log(response.status) 
+    }
+    return response.data
+  } catch  (error) {
+      console.error(error);
+  }
+}

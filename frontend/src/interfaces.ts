@@ -3,6 +3,6 @@ export interface routeHooks {
     routeUrl: string;
   }
 export interface GreetingInterface {
-  id?:number;
+  id?:number|string;
   msg:string;
 }

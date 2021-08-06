@@ -6,9 +6,12 @@ import { GreetingInterface } from './interfaces/greeting.interface';
 
 @Injectable()
 export class RestApiService {
-  //in the production phase we want 
+  //in the production phase we want
   //INFO: GREET... string is a symbol (find and replace during creation)
-  constructor(@Inject('GREETING_MODEL') private readonly greetingModel: Model<GreetingInterface>) {}
+  constructor(
+    @Inject('GREETING_MODEL')
+    private readonly greetingModel: Model<GreetingInterface>,
+  ) {}
   //if more than one we can use inheritance
 
   //INFO:js array
@@ -28,7 +31,7 @@ export class RestApiService {
   // }
   async findAll(): Promise<GreetingInterface[]> {
     const greeting = await this.greetingModel.find().exec();
-    return greeting
+    return greeting;
   }
 
   //INFO:js array
@@ -37,9 +40,11 @@ export class RestApiService {
   // }
   //why g => g.id === greetingId works and not (g) => {g.id === greetingId}
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
-  async findById(greetingId:string):Promise<GreetingInterface> {
-    const greeting = await this.greetingModel.findOne({_id:greetingId}).exec()
-    return greeting
+  async findById(greetingId: string): Promise<GreetingInterface> {
+    const greeting = await this.greetingModel
+      .findOne({ _id: greetingId })
+      .exec();
+    return greeting;
   }
 
   //INFO:js array
@@ -49,17 +54,29 @@ export class RestApiService {
   //   this.greetings.push(newGreeting);
   //   return newGreeting;
   // }
-  async createEntry(createGreetingDto: CreateGreetingDto):Promise<GreetingInterface>{
+  async createEntry(
+    createGreetingDto: CreateGreetingDto,
+  ): Promise<GreetingInterface> {
     const newGreeting = new this.greetingModel(createGreetingDto);
-    return newGreeting.save()
+    return newGreeting.save();
   }
-  async deleteProduct(greetingId: string) {
-    console.log(greetingId)
-    const result = await this.greetingModel.deleteOne({_id: greetingId}).exec()
-    if (result.n === 0 ) {
+  async deleteEntry(greetingId: string) {
+    console.log(greetingId);
+    const result = await this.greetingModel
+      .deleteOne({ _id: greetingId })
+      .exec();
+    if (result.n === 0) {
       throw new NotFoundException('greeting does not exist');
     }
-    console.log(result)
+    console.log(result);
   }
 
+  async updateEntry(greetingId: string, greetingMsg: string) {
+    //fetch from db and then update
+    const updatedEntry = await this.findById(greetingId);
+    if (greetingMsg) {
+      updatedEntry.msg = greetingMsg;
+    }
+    updatedEntry.save();
+  }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { CreateGreetingDto } from './dto/create-greeting.dto';
 import { Greeting } from './entities/greeting.entity';
@@ -46,8 +46,19 @@ export class RestApiController {
   @Delete(":id")
   async deleteEntry(@Param('id') id: string): Promise<any> {
     const deletedValue = this.restApiService.findById(id)
-    this.restApiService.deleteProduct(id)
+    this.restApiService.deleteEntry(id)
     return deletedValue;
   }
+  //BUG:swagger docs not working
+  @ApiOkResponse({ type: Greeting, isArray: true })
+  @ApiQuery({name:'msg',required:false})
+  @ApiNotFoundResponse()
+  @Patch(':id')
+  async updateProduct(
+    @Param('id') greetingId: string,
+    @Body('msg') greetingMsg: string){
+    
+    await this.restApiService.updateEntry(greetingId,greetingMsg)
+    }
 }
-//TODO: add Delete/put endpoints
+    //TODO: add Delete/put endpoints
