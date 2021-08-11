@@ -1,0 +1,27 @@
+name: Cypress Tests (dev branch only)
+#requires package-lock.json :(
+
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          working-directory: frontend
+          browser: firefox
+          headless: true
+          env: VITE_API_URL=http://localhost:3000,VITE_ENV_TYPE=dev
+          start: npm run dev
+          # webpack/vite takes some time to generate
+          wait-on: http://localhost:3000
