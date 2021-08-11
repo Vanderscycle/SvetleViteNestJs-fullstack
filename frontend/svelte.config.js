@@ -2,7 +2,8 @@ import sveltePreprocess from 'svelte-preprocess'
 
 const config = {
   preprocess: [sveltePreprocess({
-    "postcss": true
+    postcss: true,
+    typescript: true,
   })]
 };
 

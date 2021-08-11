@@ -8,7 +8,9 @@
     "allowJs": true,
     "checkJs": true,
     "types": ["cypress", "@testing-library/cypress"],
-    "importsNotUsedAsValues":"preserve"
+    "importsNotUsedAsValues":"preserve",
+    "outDir": "./dist"
   },
-  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]
+  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
+  "exclude": ["./outDir/**/*"]
 }
