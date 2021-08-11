@@ -9,7 +9,7 @@ import fastify from 'fastify';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const server = fastify({ logger: true });
+  const server = fastify({ logger: true, ignoreTrailingSlash: true });
 
   server.register(require('fastify-cors'), {
     origin: true,
